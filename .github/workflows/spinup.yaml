@@ -51,7 +51,7 @@ jobs:
         cat << EOF > ./user-data
         #!/bin/bash
         export RUNNER_CFG_PAT=${{ secrets.access-token }}
-        curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/create-latest-svc.sh | bash -s ${{ github.repository }}
+        curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/create-latest-svc.sh | bash -s ${{ github.repository }} -u root
         EOF
 
     # Create the VM
