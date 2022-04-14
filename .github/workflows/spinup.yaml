@@ -1,0 +1,49 @@
+name: Spin up Self hosted compute
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        description: "Droplet name"
+        type: string
+
+      image:
+        required: false
+        description: "Image name"
+        default: ubuntu-21-10-x64
+        type: string
+      
+      region:
+        required: false
+        description: "Region of Droplet"
+        default: fra1
+        type: string
+      
+      size:
+        required: false
+        description: "Droplet size"
+        default: c-32
+        type: string
+
+    secrets:
+      access-token:
+        description: 'A token passed from the caller workflow'
+        required: true
+
+      do-access-token:
+        description: 'An API token to access DigitalOcean with'
+        required: true
+
+jobs:
+  spin-up:
+    runs-on: ubuntu-latest
+    steps:
+    # Install Doctl
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.do-access-token }}
+    # Create the VM
+    - name: Create vm ${{ inputs.name }}
+      run: doctl compute droplet create ${{ inputs.name }} --image ${{ inputs.image }} --region ${{ inputs.region }} --size ${{ inputs.size }} --wait
