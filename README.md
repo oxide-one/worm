@@ -1,4 +1,6 @@
-# DigitalOcean based ephemeral VMs
+# DigitalOcean based ephemeral VMs for Github Actions
+
+Worm, short for Workflow Runner Maker; allows for faster build times utilizing the power of clouuuuuuuuddddd
 
 I made this because I wanted to utilize the capabilities of [DigitalOcean](https://digitalocean.com) Droplets to run self hosted runners, without an extraordinary bill at the end of the month.
 
@@ -27,7 +29,7 @@ From there, you'll need to reference this repo in your Workflows.
 jobs:
   spin-up-droplet:
     name: Spin up Droplet
-    uses: oxide-one/workflow-runner-maker/.github/workflows/spinup.yaml@main
+    uses: oxide-one/worm/.github/workflows/spinup.yaml@main
     with:
       name: gha-${{ github.run_id }}-${{ github.run_number }}
     secrets:
@@ -58,7 +60,7 @@ Once all of the actions you want to run are completed, make sure you tear down t
     - do-things-on-runner # <- The ID of previous jobs
     name: Spin Down Droplet
     if: always() # <- REQUIRED
-    uses: oxide-one/workflow-runner-maker/.github/workflows/teardown.yaml@main
+    uses: oxide-one/worm/.github/workflows/teardown.yaml@main
     with:
       name: gha-${{ github.run_id }}-${{ github.run_number }}
     secrets:
