@@ -18,7 +18,7 @@ on:
         required: true
 
 jobs:
-  spin-up:
+  tear-down:
     runs-on: ubuntu-latest
     steps:
     # Install Doctl
