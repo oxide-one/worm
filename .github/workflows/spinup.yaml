@@ -46,4 +46,4 @@ jobs:
         token: ${{ secrets.do-access-token }}
     # Create the VM
     - name: Create vm ${{ inputs.name }}
-      run: doctl compute droplet create ${{ inputs.name }} --image ${{ inputs.image }} --region ${{ inputs.region }} --size ${{ inputs.size }} --wait
+      run: doctl compute droplet create ${{ inputs.name }} --image ${{ inputs.image }} --region ${{ inputs.region }} --size ${{ inputs.size }} --wait > /dev/null
