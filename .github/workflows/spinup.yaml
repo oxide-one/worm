@@ -44,9 +44,16 @@ jobs:
       uses: digitalocean/action-doctl@v2
       with:
         token: ${{ secrets.do-access-token }}
+
+    # Template out the file for user-data
+    - name: Template out file
+      run: |
+        cat << EOF > ./user-data
+        #!/bin/bash
+        export RUNNER_CFG_PAT=${{ secrets.access-token }}
+        curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/create-latest-svc.sh | bash -s ${{ github.repository }}
+        EOF
+
     # Create the VM
     - name: Create vm ${{ inputs.name }}
-      run: doctl compute droplet create ${{ inputs.name }} --image ${{ inputs.image }} --region ${{ inputs.region }} --size ${{ inputs.size }} --wait > /dev/null
-
-    - name: "Show repository"
-      run: echo ${{ github.repository }}
+      run: doctl compute droplet create ${{ inputs.name }} --image ${{ inputs.image }} --region ${{ inputs.region }} --size ${{ inputs.size }} --wait --user-data-file ./user-data > /dev/null
