@@ -69,7 +69,7 @@ jobs:
         for ATTEMPT in {1..10};
         do
           echo "#### Attempt $ATTEMPT ####"
-          if curl -s -X GET https://api.github.com/repos/${{ github.repository }}/actions/runners -H "accept: application/json" -H "authorization: token ${{ secrets.access-token }}" | jq -er '.runners[] | select(.name == "${{ inputs.name }}") | has("status")');
+          if curl -s -X GET https://api.github.com/repos/${{ github.repository }}/actions/runners -H "accept: application/json" -H "authorization: token ${{ secrets.access-token }}" | jq -er '.runners[] | select(.name == "${{ inputs.name }}") | has("status")';
           then
             exit 0
           fi
