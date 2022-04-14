@@ -47,3 +47,6 @@ jobs:
     # Create the VM
     - name: Create vm ${{ inputs.name }}
       run: doctl compute droplet create ${{ inputs.name }} --image ${{ inputs.image }} --region ${{ inputs.region }} --size ${{ inputs.size }} --wait > /dev/null
+
+    - name: "Show repository"
+      run: echo ${{ github.repository }}
