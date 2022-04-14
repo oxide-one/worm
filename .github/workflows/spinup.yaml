@@ -55,8 +55,8 @@ jobs:
         useradd -m gha-runner
         echo "gha-runner ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/gha-runner
         export RUNNER_CFG_PAT="${{ secrets.access-token }}"
-        cd 
-        curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/create-latest-svc.sh | sudo -E -s -u gha-runner bash -s ${{ github.repository }} -u root
+        cd /home/gha-runner
+        curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/create-latest-svc.sh | sudo -E -s -u gha-runner bash -s ${{ github.repository }}
         EOF
 
     # Create the VM
